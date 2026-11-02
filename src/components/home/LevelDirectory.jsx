@@ -4,8 +4,8 @@ import { LEVELS } from '@/data/systems-engineering';
 
 export default function LevelDirectory({
    id = 'study-levels',
-   title = 'Every level gets its own space.',
-   description = 'Open a dedicated Systems Engineering workspace for level-specific courses, materials, announcements, and schedules.',
+   title = 'Find your level. Pick your next step.',
+   description = 'Choose your current year to find study resources, practical guides, and helpful ways to plan what to learn next.',
 }) {
    return (
       <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-20 bg-background px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20">
@@ -37,7 +37,7 @@ export default function LevelDirectory({
                      <div className="mt-6">
                         <p className="text-xs font-medium text-muted-foreground">{level.name}</p>
                         <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-foreground transition-colors group-hover:text-primary">
-                           Open workspace
+                           View level resources
                            <ArrowUpRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </span>
                      </div>

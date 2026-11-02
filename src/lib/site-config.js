@@ -6,7 +6,7 @@ export const SITE_NAME = 'FUOYE Systems Engineering';
 export const SITE_TITLE_DEFAULT = 'FUOYE Systems Engineering | Student Hub';
 export const SITE_TITLE_TEMPLATE = '%s | FUOYE Systems Engineering';
 export const SITE_DESCRIPTION =
-   'A mobile-first academic hub for FUOYE Systems Engineering students, with dedicated level spaces for verified course information, study resources, announcements, and schedules.';
+   'Find curated study materials by level, preview student events, and learn how representation works at FUOYE Systems Engineering.';
 
 export const SITE_KEYWORDS = [
    'FUOYE Systems Engineering',
@@ -20,6 +20,9 @@ export const SITE_KEYWORDS = [
    '300L Systems Engineering',
    '400L Systems Engineering',
    '500L Systems Engineering',
+   'FUOYE student events',
+   'FUOYE student representation',
+   'FUOYE study materials',
 ];
 
 export const OG_IMAGE_PATH = '/systems-engineering-hero.png';
