@@ -7,6 +7,22 @@ import Link from 'next/link';
 import { EyeOff, Eye, ArrowRight } from 'lucide-react';
 import { SecurityLock } from '@esvigy/react';
 
+function getSignInErrorMessage(authError) {
+   if (authError?.code === 'invalid_credentials' || authError?.code === 'user_not_found') {
+      return 'Invalid email or password.';
+   }
+
+   if (authError?.code === 'email_not_confirmed') {
+      return 'Please confirm your email address before signing in.';
+   }
+
+   if (authError?.status === 429 || authError?.code === 'over_request_rate_limit') {
+      return 'Too many sign-in attempts. Please wait and try again.';
+   }
+
+   return 'Unable to sign in. Please try again.';
+}
+
 export default function AdminLogin() {
    const [formData, setFormData] = useState({ email: '', password: '' });
    const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +30,6 @@ export default function AdminLogin() {
    const [showPassword, setShowPassword] = useState(false);
    const [error, setError] = useState('');
    const router = useRouter();
-   const supabase = createClient();
 
    const handleChange = (e) => {
       const { name, value } = e.target;
@@ -39,20 +54,25 @@ export default function AdminLogin() {
 
       setIsLoading(true);
       try {
+         const supabase = createClient();
          const { error: signInError } = await supabase.auth.signInWithPassword({
             email: formData.email,
             password: formData.password,
          });
 
          if (signInError) {
-            setError(signInError.message);
+            setError(getSignInErrorMessage(signInError));
             return;
          }
 
          router.push("/admin/dashboard");
          router.refresh();
       } catch (err) {
-         setError(err?.message || "An unexpected error occurred during sign in.");
+         if (err instanceof Error && err.message === 'Supabase is not configured for this deployment.') {
+            setError('Admin sign-in is temporarily unavailable. Please contact the site administrator.');
+         } else {
+            setError('Unable to sign in. Please try again.');
+         }
       } finally {
          setIsLoading(false);
       }
@@ -69,11 +89,11 @@ export default function AdminLogin() {
                   className="w-24 h-24 mb-3 filter drop-shadow-sm" 
                />
                <h1 className="text-2xl font-bold text-slate-900 font-nasalization text-center">Admin Login</h1>
-               <p className="text-slate-500 mt-1 text-center text-sm">Access the NACOSS Portal management dashboard.</p>
+               <p className="text-slate-500 mt-1 text-center text-sm">Management access for the FUOYE Systems Engineering student hub.</p>
             </div>
 
             {error && (
-               <div className="mb-6 p-4 bg-red-50/80 backdrop-blur-sm border border-red-100 rounded-xl text-red-600 text-sm text-center">
+               <div role="alert" className="mb-6 p-4 bg-red-50/80 backdrop-blur-sm border border-red-100 rounded-xl text-red-600 text-sm text-center">
                   {error}
                </div>
             )}
@@ -88,7 +108,7 @@ export default function AdminLogin() {
                      value={formData.email}
                      onChange={handleChange}
                      className={`w-full px-4 py-3 rounded-lg border-2 ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-slate-200 focus:border-primary focus:ring-primary/20'} outline-none transition-colors text-slate-900 bg-slate-50 focus:bg-white`}
-                     placeholder="admin@nacoss.org"
+                     placeholder="Enter your email"
                      autoComplete="email"
                   />
                   {errors.email && <p className="mt-1.5 text-sm text-red-500 font-medium">{errors.email}</p>}
@@ -111,7 +131,6 @@ export default function AdminLogin() {
                         type="button"
                         className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 transition-colors active:scale-[0.97] duration-160 ease-out"
                         onClick={() => setShowPassword(!showPassword)}
-                        tabIndex={-1}
                         aria-label={showPassword ? "Hide password" : "Show password"}
                      >
                         {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}

@@ -39,7 +39,6 @@ export default function MemosList() {
    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
    const filterRef = useRef(null);
-   const supabase = createClient();
 
    // Click outside and Escape key handler for Filter dropdown
    useEffect(() => {
@@ -68,6 +67,19 @@ export default function MemosList() {
 
    useEffect(() => {
       let isMounted = true;
+      let supabase;
+
+      try {
+         supabase = createClient();
+      } catch {
+         setFetchError('Could not connect to the memo service.');
+         setData(null);
+         setLoading(false);
+         return () => {
+            isMounted = false;
+         };
+      }
+
       const fetchData = async () => {
          const { data: fetchedData, error } = await supabase
             .from('memo')
@@ -107,7 +119,7 @@ export default function MemosList() {
          clearTimeout(timer);
          supabase.removeChannel(channel);
       };
-   }, [order, supabase]);
+   }, [order]);
 
    // Calculate active filters count (excluding default state: 'all' category and Newest order)
    const activeFilterCount = (filterType !== 'all' ? 1 : 0) + (order ? 1 : 0);
