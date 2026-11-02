@@ -1,38 +1,34 @@
-'use client';
-
 import Link from 'next/link';
-import { NotFoundLaptop } from '@esvigy/react';
-import { Home, ArrowLeft } from 'lucide-react';
+import { ArrowUpRight, Network } from 'lucide-react';
 
 export default function NotFound() {
    return (
-      <main className="max-w-4xl mx-auto px-4 py-16 min-h-[80vh] flex flex-col items-center justify-center text-center">
-         <div className="relative mb-6">
-            <NotFoundLaptop animated={true} color="#039133" secondaryColor="rgba(3,145,51,0.08)" className="w-64 h-64 mx-auto filter drop-shadow-xl" />
+      <main className="flex min-h-[70vh] flex-col items-center justify-center px-4 py-16 text-center sm:px-6">
+         <div className="flex size-20 items-center justify-center rounded-[1.75rem] bg-primary text-accent shadow-lg shadow-primary/10">
+            <Network aria-hidden="true" className="size-9" />
          </div>
-         <span className="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-3.5 py-1.5 rounded-full mb-3">
-            Error 404 • Page Not Found
-         </span>
-         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
-            Lost in the Department Directory?
-         </h1>
-         <p className="max-w-md text-slate-500 font-medium text-base mb-8">
-            The memo, resource, or page you were looking for doesn't exist or might have been relocated.
+         <p className="mt-7 rounded-full border border-border bg-white px-3.5 py-2 text-xs font-bold uppercase tracking-[0.16em] text-primary">
+            404 · Page not found
          </p>
-         <div className="flex flex-wrap items-center justify-center gap-4">
+         <h1 className="mt-4 max-w-xl font-display text-3xl font-bold tracking-[-0.04em] text-foreground sm:text-4xl">
+            This page is outside the system.
+         </h1>
+         <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground sm:text-base">
+            The link may be outdated, or this level resource has not been published here yet.
+         </p>
+         <div className="mt-7 flex w-full max-w-sm flex-col gap-3 sm:flex-row sm:justify-center">
             <Link
+               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                href="/"
-               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-bold text-sm hover:bg-primary-hover shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95"
             >
-               <Home size={18} />
-               <span>Return to Portal Home</span>
+               Return home
             </Link>
             <Link
-               href="/memos"
-               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold text-sm hover:border-primary/40 hover:text-primary transition-all duration-300"
+               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-bold text-foreground transition-colors hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+               href="/academics"
             >
-               <ArrowLeft size={18} />
-               <span>Browse Memos</span>
+               Browse levels
+               <ArrowUpRight aria-hidden="true" className="size-4" />
             </Link>
          </div>
       </main>

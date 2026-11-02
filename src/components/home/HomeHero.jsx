@@ -1,60 +1,64 @@
-'use client';
-
-import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowDown, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { DEPARTMENT_PROFILE_URL } from '@/data/systems-engineering';
 
 export default function HomeHero() {
    return (
-      <section className="relative overflow-hidden rounded-3xl md:rounded-[2.5rem] bg-primary p-6 sm:p-10 md:p-14 mb-8 text-white">
-         {/* Background Watermark Logo - Large, absolutely positioned, seamless background element with no hover state */}
-         <div className="absolute -right-12 -bottom-16 sm:-right-16 sm:-bottom-20 md:-right-20 md:-bottom-24 lg:-right-16 lg:-bottom-24 w-80 h-80 sm:w-96 sm:h-96 md:w-lg md:h-128 lg:w-160 lg:h-160 opacity-20 pointer-events-none select-none">
-            <Image
-               src="/nacossfuoye_logo.png"
-               alt="NACOSS FUOYE Departmental Logo"
-               fill
-               sizes="(max-width: 768px) 384px, 640px"
-               priority
-               className="object-contain"
-            />
-         </div>
-
-         {/* Foreground Details & Call to Action */}
-         <div className="relative z-10 max-w-3xl space-y-5 text-center sm:text-left">
-            <p className="text-xs sm:text-sm font-bold tracking-wider uppercase text-white/90">
-               Department of Computer Science &bull; FUOYE
-            </p>
-
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12]">
-               Welcome to <br />
-               <span className="text-white">
-                  NACOSS Fuoye Portal
-               </span>
-            </h1>
-
-            <p className="text-slate-100 text-base sm:text-lg leading-relaxed max-w-xl mx-auto sm:mx-0 font-medium">
-               The official digital hub for Computer Science students at Federal University Oye-Ekiti. Access verified memos, courseware, dev software, student idea incubation under full NDA, and hackathons.
-            </p>
-
-            {/* Call to Action Buttons */}
-            <div className="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-3.5">
-               <Link
-                  href="/memos"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-100 text-primary font-bold text-sm shadow-sm hover:shadow-md transition-all duration-300 active:scale-95"
-               >
-                  <span>Explore Memos</span>
-                  <ArrowRight size={18} />
-               </Link>
-
-               <Link
-                  href="/buildlab"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-sm border border-white/20 backdrop-blur-xs transition-all duration-300 active:scale-95"
-               >
-                  <Sparkles size={16} className="text-white" />
-                  <span>Explore BuildLab</span>
-               </Link>
+      <section aria-labelledby="home-hero-title" className="border-b border-border bg-[#f3f5ee]">
+         <div className="mx-auto grid max-w-7xl items-center gap-9 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1fr_0.92fr] lg:gap-14 lg:px-8 lg:py-20">
+            <div className="max-w-2xl">
+               <p className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/80 px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-primary">
+                  <span className="size-2 rounded-full bg-accent" aria-hidden="true" />
+                  FUOYE · Systems Engineering
+               </p>
+               <h1 id="home-hero-title" className="mt-6 font-display text-4xl font-bold leading-[1.04] tracking-[-0.045em] text-foreground sm:text-5xl lg:text-6xl">
+                  See the whole system.
+                  <span className="mt-1 block text-primary">Shape what comes next.</span>
+               </h1>
+               <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+                  A mobile-first academic hub for FUOYE Systems Engineering students. Find your level&apos;s workspace for course information, study resources, announcements, and schedules—with unpublished details clearly marked.
+               </p>
+               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <Link
+                     className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                     href="/academics"
+                  >
+                     Choose your level
+                     <ArrowDown aria-hidden="true" className="size-4" />
+                  </Link>
+                  <a
+                     className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-bold text-foreground transition-colors hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                     href={DEPARTMENT_PROFILE_URL}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                  >
+                     Department profile
+                     <ArrowUpRight aria-hidden="true" className="size-4" />
+                  </a>
+               </div>
+               <p className="mt-5 inline-flex items-start gap-2 text-xs font-medium leading-5 text-muted-foreground">
+                  <ShieldCheck aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
+                  Verified programme information only. Missing records are never filled with guesses.
+               </p>
             </div>
+
+            <figure className="overflow-hidden rounded-[1.75rem] border border-primary/10 bg-white shadow-[0_24px_80px_-48px_rgba(17,35,27,0.42)]">
+               <div className="relative aspect-[4/3]">
+                  <Image
+                     src="/systems-engineering-hero.png"
+                     alt="Illustrative engineering model with interconnected transport, infrastructure, and process pathways"
+                     fill
+                     priority
+                     sizes="(max-width: 1023px) 100vw, 48vw"
+                     className="object-cover"
+                  />
+               </div>
+               <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-border px-4 py-3 text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground sm:px-5">
+                  <span>Illustrative systems model</span>
+                  <span>Systems thinking, made visible</span>
+               </figcaption>
+            </figure>
          </div>
       </section>
    );

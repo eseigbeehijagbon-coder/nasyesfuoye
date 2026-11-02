@@ -3,7 +3,6 @@ import { Raleway, Inter, DM_Sans, Poppins } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-
 import {
    SITE_URL,
    SITE_NAME,
@@ -12,32 +11,39 @@ import {
    SITE_DESCRIPTION,
    SITE_KEYWORDS,
    DEFAULT_OG_IMAGE,
+   OG_IMAGE_PATH,
+   LOGO_PATH,
 } from '@/lib/site-config';
 
 const nasalization = localFont({
    src: '../../public/fonts/nasalization.otf',
-   variable: '--font-nasalization',
+   variable: '--font-nasalization-family',
+   display: 'swap',
 });
 
 const raleway = Raleway({
    subsets: ['latin'],
-   variable: '--font-raleway',
+   variable: '--font-raleway-family',
+   display: 'swap',
 });
 
 const inter = Inter({
    subsets: ['latin'],
    variable: '--font-inter',
+   display: 'swap',
 });
 
 const dmSans = DM_Sans({
    subsets: ['latin'],
    variable: '--font-dm-sans',
+   display: 'swap',
 });
 
 const poppins = Poppins({
    subsets: ['latin'],
    weight: ['400', '500', '600', '700'],
-   variable: '--font-poppins',
+   variable: '--font-poppins-family',
+   display: 'swap',
 });
 
 export const metadata = {
@@ -48,15 +54,11 @@ export const metadata = {
    },
    description: SITE_DESCRIPTION,
    applicationName: SITE_NAME,
-   authors: [
-      { name: 'Department of Computer Science, FUOYE' },
-      { name: 'NACOSS FUOYE Chapter', url: SITE_URL },
-   ],
+   authors: [{ name: 'FUOYE Systems Engineering' }],
    generator: 'Next.js',
    keywords: SITE_KEYWORDS,
-   referrer: 'origin-when-cross-origin',
-   creator: 'NACOSS FUOYE Technical Team',
-   publisher: 'Department of Computer Science, Federal University Oye-Ekiti',
+   referrer: 'strict-origin-when-cross-origin',
+   creator: 'FUOYE Systems Engineering',
    formatDetection: {
       email: false,
       address: false,
@@ -78,17 +80,10 @@ export const metadata = {
       card: 'summary_large_image',
       title: SITE_TITLE_DEFAULT,
       description: SITE_DESCRIPTION,
-      images: ['/og.png'],
-      creator: '@nacossfuoye',
-      site: '@nacossfuoye',
+      images: [OG_IMAGE_PATH],
    },
    icons: {
-      icon: [
-         { url: '/nacossfuoye_logo.png', sizes: '141x141', type: 'image/png' },
-      ],
-      apple: [
-         { url: '/nacossfuoye_logo.png', sizes: '141x141', type: 'image/png' },
-      ],
+      icon: [{ url: LOGO_PATH, type: 'image/svg+xml' }],
    },
    manifest: '/manifest.webmanifest',
    robots: {
@@ -105,53 +100,40 @@ export const metadata = {
    category: 'education',
 };
 
+export const viewport = {
+   width: 'device-width',
+   initialScale: 1,
+   viewportFit: 'cover',
+   themeColor: '#f3f5ee',
+   colorScheme: 'light',
+   userScalable: true,
+};
+
 const jsonLd = {
    '@context': 'https://schema.org',
-   '@graph': [
-      {
-         '@type': 'EducationalOrganization',
-         '@id': `${SITE_URL}/#organization`,
-         name: 'Department of Computer Science, Federal University Oye-Ekiti',
-         alternateName: ['NACOSS FUOYE', 'FUOYE Computer Science'],
-         url: SITE_URL,
-         logo: `${SITE_URL}/nacossfuoye_logo.png`,
-         image: `${SITE_URL}/og.png`,
-         description: SITE_DESCRIPTION,
-         parentOrganization: {
-            '@type': 'CollegeOrUniversity',
-            name: 'Federal University Oye-Ekiti',
-            url: 'https://fuoye.edu.ng',
-         },
-      },
-      {
-         '@type': 'WebSite',
-         '@id': `${SITE_URL}/#website`,
-         url: SITE_URL,
-         name: SITE_NAME,
-         description: 'Official digital portal for the Department of Computer Science, FUOYE',
-         publisher: {
-            '@id': `${SITE_URL}/#organization`,
-         },
-         inLanguage: 'en-NG',
-         potentialAction: {
-            '@type': 'SearchAction',
-            target: `${SITE_URL}/memos?q={search_term_string}`,
-            'query-input': 'required name=search_term_string',
-         },
-      },
-   ],
+   '@type': 'WebSite',
+   name: SITE_NAME,
+   url: SITE_URL,
+   description: SITE_DESCRIPTION,
+   inLanguage: 'en-NG',
 };
 
 export default function RootLayout({ children }) {
    return (
       <html lang="en" className="scroll-smooth">
-         <body className={`${raleway.variable} ${nasalization.variable} ${inter.variable} ${dmSans.variable} ${poppins.variable} font-sans antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-green-100 selection:text-green-900 pt-20 sm:pt-24`}>
+         <body className={`${raleway.variable} ${nasalization.variable} ${inter.variable} ${dmSans.variable} ${poppins.variable} flex min-h-screen flex-col bg-background font-sans text-foreground antialiased`}>
             <script
                type="application/ld+json"
-               dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+               dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
             />
+            <a
+               href="#main-content"
+               className="sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:not-sr-only focus:rounded-xl focus:bg-primary focus:px-4 focus:py-3 focus:font-bold focus:text-primary-foreground"
+            >
+               Skip to main content
+            </a>
             <Navbar />
-            <div className="flex-1 w-full">
+            <div id="main-content" className="w-full flex-1">
                {children}
             </div>
             <Footer />

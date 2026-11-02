@@ -1,525 +1,117 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { 
-   Github, 
-   ChevronDown, 
-   Sparkles, 
-   Lightbulb, 
-   Trophy, 
-   Gamepad2, 
-   BookOpen, 
-   FileText, 
-   Palette,
-   Users, 
-   UserPlus, 
-   Menu, 
-   X, 
-   ExternalLink,
-   MessageSquare,
-   Send,
-   CheckCircle2,
-   GraduationCap
-} from 'lucide-react';
-
-const REPO_URL = 'https://github.com/nickfrostech/nacossfuoye';
-
-const DO_SOMETHING_ITEMS = [
-   {
-      title: 'Academic & Software Materials',
-      desc: 'Registered units, outlines, past questions & software programmes',
-      href: '/academics',
-      icon: BookOpen,
-      color: 'text-blue-600 bg-blue-50 border-blue-200/60',
-   },
-   {
-      title: 'BuildLab & Student Showcase',
-      desc: 'Browse student creations or incubate new tech ideas under NDA',
-      href: '/buildlab',
-      icon: Lightbulb,
-      color: 'text-teal-600 bg-teal-50 border-teal-200/60',
-   },
-   {
-      title: 'Events & Hackathons',
-      desc: 'Upcoming workshops, talks & national hackathons to apply for',
-      href: '/events',
-      icon: Trophy,
-      color: 'text-amber-600 bg-amber-50 border-amber-200/60',
-   },
-   {
-      title: 'Governance & Elections',
-      desc: 'Executive directory, SRC representatives & live election voting',
-      href: '/governance',
-      icon: Users,
-      color: 'text-green-600 bg-green-50 border-green-200/60',
-   },
-   {
-      title: 'Official Memos',
-      desc: 'Executive, SRC, and departmental verified communications',
-      href: '/memos',
-      icon: FileText,
-      color: 'text-emerald-600 bg-emerald-50 border-emerald-200/60',
-   },
-   {
-      title: 'Arcade Arena & Games',
-      desc: 'Play mini games and compete on the live weekly leaderboard',
-      href: '/games',
-      icon: Gamepad2,
-      color: 'text-indigo-600 bg-indigo-50 border-indigo-200/60',
-   },
-   {
-      title: 'Graphics Studio & Flyers',
-      desc: 'Create official departmental celebration designs and flyers',
-      href: '/graphics',
-      icon: Palette,
-      color: 'text-purple-600 bg-purple-50 border-purple-200/60',
-   },
-];
-
-const PRO_WHATSAPP_NUMBER = '2348055986730';
-const LEVEL_JOIN_MSG = encodeURIComponent(
-   `Hello P.R.O, I would like to join my departmental level WhatsApp group.\n\n` +
-   `• Full Name: \n` +
-   `• Matric No: \n` +
-   `• Level (100L / 200L / 300L / 400L): `
-);
-
-const SPORT_DIRECTOR_NUMBER = '2349137345520';
-const SPORT_JOIN_MSG = encodeURIComponent(
-   `Hello Sports Director, I would like to join the NACOSS FUOYE Sports community and games/football group.\n\n` +
-   `• Full Name: \n` +
-   `• Level: \n` +
-   `• Sport of Interest (Football, Basketball, Table Tennis, Chess, Esports, etc.): `
-);
-
-const COMMUNITY_CHANNELS = [
-   {
-      name: 'WhatsApp Channel',
-      desc: 'Official departmental announcements, broad updates & broadcast circulars',
-      icon: MessageSquare,
-      color: 'bg-emerald-500 text-white',
-      badge: 'Broadcast',
-      linkText: 'Join Channel',
-      url: 'https://whatsapp.com/channel/0029VaikWEcGOj9fZKC4sK2N',
-   },
-   {
-      name: 'Join Your Level Group',
-      desc: 'Connect with course mates in the official 100L–400L class WhatsApp groups via the P.R.O',
-      icon: GraduationCap,
-      color: 'bg-blue-600 text-white',
-      badge: 'Level Groups',
-      linkText: 'Message P.R.O',
-      url: `https://wa.me/${PRO_WHATSAPP_NUMBER}?text=${LEVEL_JOIN_MSG}`,
-   },
-   {
-      name: 'Join Sports Community',
-      desc: 'Departmental football teams, inter-level tournaments, athletics & indoor games',
-      icon: Trophy,
-      color: 'bg-amber-600 text-white',
-      badge: 'Sports Hub',
-      linkText: 'Message Sports Director',
-      url: `https://wa.me/${SPORT_DIRECTOR_NUMBER}?text=${SPORT_JOIN_MSG}`,
-   },
-   {
-      name: 'Departmental Directory',
-      desc: 'Speak directly with executive representatives and student welfare leadership',
-      icon: Users,
-      color: 'bg-purple-600 text-white',
-      badge: 'Directory',
-      linkText: 'View Directory',
-      url: '/governance',
-   },
-];
+import Link from 'next/link';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { DEPARTMENT_PROFILE_URL, LEVELS } from '@/data/systems-engineering';
 
 export default function Navbar() {
-   const pathname = usePathname();
-   const [isMenuOpen, setIsMenuOpen] = useState(false);
-   const [isDoSomethingOpen, setIsDoSomethingOpen] = useState(false);
-   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-   const navContainerRef = useRef(null);
-
-   // Close popups on route change
-   useEffect(() => {
-      setIsMenuOpen(false);
-      setIsDoSomethingOpen(false);
-      setIsJoinModalOpen(false);
-   }, [pathname]);
-
-   // Click outside handler for dropdowns and mobile menu
-   useEffect(() => {
-      const handleClickOutside = (event) => {
-         if (navContainerRef.current && !navContainerRef.current.contains(event.target)) {
-            setIsDoSomethingOpen(false);
-            setIsMenuOpen(false);
-         }
-      };
-
-      const handleKeyDown = (event) => {
-         if (event.key === 'Escape') {
-            setIsDoSomethingOpen(false);
-            setIsJoinModalOpen(false);
-            setIsMenuOpen(false);
-         }
-      };
-
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('keydown', handleKeyDown);
-
-      return () => {
-         document.removeEventListener('mousedown', handleClickOutside);
-         document.removeEventListener('keydown', handleKeyDown);
-      };
-   }, []);
+   function closeMobileMenu() {
+      setMobileMenuOpen(false);
+   }
 
    return (
-      <>
-         {/* Mobile Backdrop Overlay - closes menu when tapping outside */}
-         <div
-            aria-hidden="true"
-            onClick={() => setIsMenuOpen(false)}
-            className={`md:hidden fixed inset-0 bg-slate-500/30 backdrop-blur-xs z-40 transition-opacity duration-300 ${
-               isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-            }`}
-         />
-
-         {/* Floating Top Navbar Container - Fixed position ensures persistent stickiness on all pages */}
-         <header 
-            ref={navContainerRef}
-            className="fixed top-4 left-0 right-0 z-50 w-full px-3 sm:px-6 max-w-6xl mx-auto pointer-events-none"
-         >
-            <nav 
-               aria-label="Main Navigation"
-               className="pointer-events-auto relative flex items-center justify-between px-3.5 sm:px-5 py-2.5 rounded-full bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300"
+      <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+            <Link
+               href="/"
+               onClick={closeMobileMenu}
+               className="flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+               aria-label="FUOYE Systems Engineering home"
             >
-               {/* Left: Department Logo and NACOSS Name */}
-               <Link 
-                  href="/" 
-                  className="flex items-center gap-2.5 pl-1.5 pr-2 rounded-full hover:bg-slate-100/70 transition-colors group select-none"
-                  aria-label="NACOSS Home"
-               >
-                  <div className="relative w-10 h-10 rounded-full overflow-hidden flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform duration-300">
-                     <Image 
-                        src="/nacossfuoye_logo.png" 
-                        alt="NACOSS FUOYE Logo" 
-                        width={30} 
-                        height={30} 
-                        className="w-full h-full object-center"
-                        priority
-                     />
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                     <span className="font-extrabold text-sm sm:text-base tracking-wider text-slate-900 font-nasalization uppercase">
-                        NACOSS
-                     </span>
-                     <span className="text-[10px] font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-sans">
-                        FUOYE
-                     </span>
-                  </div>
+               <span className="relative size-10 shrink-0 overflow-hidden rounded-xl">
+                  <Image src="/systems-mark.svg" alt="" fill sizes="40px" />
+               </span>
+               <span className="flex min-w-0 flex-col leading-tight">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">FUOYE</span>
+                  <span className="truncate font-display text-sm font-bold text-foreground sm:text-base">Systems Engineering</span>
+               </span>
+            </Link>
+
+            <nav aria-label="Primary navigation" className="hidden items-center gap-7 md:flex">
+               <Link className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary" href="/#programme">
+                  Programme
                </Link>
-
-               {/* Center: Desktop Navigation Items */}
-               <div className="hidden md:flex items-center gap-1">
-                  {/* "Do Something" Interactive Dropdown */}
-                  <div className="relative">
-                     <button
-                        type="button"
-                        onClick={() => setIsDoSomethingOpen((prev) => !prev)}
-                        aria-expanded={isDoSomethingOpen}
-                        aria-haspopup="true"
-                        className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
-                           isDoSomethingOpen 
-                              ? 'bg-emerald-50 text-emerald-700 shadow-xs' 
-                              : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100/80'
-                        }`}
-                     >
-                        <Sparkles size={15} className="text-emerald-600" />
-                        <span>Do Something</span>
-                        <ChevronDown 
-                           size={14} 
-                           className={`transition-transform duration-200 opacity-60 ${isDoSomethingOpen ? 'rotate-180 text-emerald-700' : ''}`} 
-                        />
-                     </button>
-
-                     {/* Dropdown Menu with Two-Way Opening and Closing Animation */}
-                     <div 
-                        role="menu"
-                        aria-hidden={!isDoSomethingOpen}
-                        className={`absolute top-full left-1/2 -translate-x-1/2 mt-3 w-105 max-w-[92vw] p-2 bg-white/95 backdrop-blur-2xl rounded-3xl border border-slate-200/90 shadow-2xl z-50 origin-top transition-all duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                           isDoSomethingOpen
-                              ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto visible'
-                              : 'opacity-0 scale-95 -translate-y-2 pointer-events-none invisible'
-                        }`}
-                     >
-                        <div className="flex flex-col gap-1 max-h-[80vh] overflow-y-auto p-1">
-                           {DO_SOMETHING_ITEMS.map((item) => {
-                              const IconComp = item.icon;
-                              return (
-                                 <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    onClick={() => setIsDoSomethingOpen(false)}
-                                    role="menuitem"
-                                    className="flex items-start gap-3 p-2.5 rounded-2xl hover:bg-slate-50 transition-colors group"
-                                 >
-                                    <div className={`p-2.5 rounded-xl shrink-0 border ${item.color} group-hover:scale-105 transition-transform`}>
-                                       <IconComp size={18} />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                       <span className="text-sm font-bold text-slate-800 group-hover:text-emerald-700 transition-colors block truncate">
-                                          {item.title}
-                                       </span>
-                                       <p className="text-xs text-slate-500 line-clamp-1 mt-0.5 font-medium">
-                                          {item.desc}
-                                       </p>
-                                    </div>
-                                 </Link>
-                              );
-                           })}
-                        </div>
-                     </div>
-                  </div>
-
-                  {/* Direct Nav Links */}
-                  <Link 
-                     href="/memos" 
-                     className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
-                        pathname === '/memos' 
-                           ? 'text-emerald-700 bg-emerald-50/80 font-semibold' 
-                           : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
-                     }`}
-                  >
-                     Memos
-                  </Link>
-
-                  <Link 
-                     href="/academics" 
-                     className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
-                        pathname === '/academics' 
-                           ? 'text-emerald-700 bg-emerald-50/80 font-semibold' 
-                           : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
-                     }`}
-                  >
-                     Academics
-                  </Link>
-
-                  <Link 
-                     href="/games" 
-                     className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
-                        pathname?.startsWith('/games') 
-                           ? 'text-emerald-700 bg-emerald-50/80 font-semibold' 
-                           : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
-                     }`}
-                  >
-                     Games
-                  </Link>
-               </div>
-
-               {/* Right Side: Desktop "Join" + GitHub Repository Link, Mobile Hamburger */}
-               <div className="flex items-center gap-2">
-                  {/* Desktop Only: "Join" Button */}
-                  <button
-                     type="button"
-                     onClick={() => setIsJoinModalOpen(true)}
-                     className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold bg-primary text-white hover:bg-primary/90 transition-all shadow-xs hover:shadow-md active:scale-95"
-                     aria-label="Join NACOSS Community"
-                  >
-                     <UserPlus size={14} />
-                     <span>Join</span>
-                  </button>
-
-                  {/* Desktop Only: GitHub Repository Icon */}
-                  <a
-                     href={REPO_URL}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     aria-label="NACOSS Portal GitHub Repository"
-                     title="View GitHub Repository"
-                     className="hidden md:inline-flex items-center justify-center w-9 h-9 rounded-full bg-slate-100/90 hover:bg-slate-200 text-slate-700 hover:text-slate-900 transition-all duration-200 active:scale-95 shadow-2xs"
-                  >
-                     <Github size={17} className="transition-transform hover:rotate-6" />
-                  </a>
-
-                  {/* Mobile Menu Hamburger Toggle */}
-                  <button
-                     type="button"
-                     onClick={() => setIsMenuOpen((prev) => !prev)}
-                     aria-expanded={isMenuOpen}
-                     aria-label="Toggle mobile menu"
-                     className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
-                  >
-                     {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
-                  </button>
-               </div>
+               <Link className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary" href="/academics">
+                  Student levels
+               </Link>
+               <a
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"
+                  href={DEPARTMENT_PROFILE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+               >
+                  Department profile
+                  <ArrowUpRight aria-hidden="true" className="size-4" />
+               </a>
             </nav>
 
-            {/* Mobile Dropdown Menu Drawer with Fluid Opening and Closing Animation */}
-            <div 
-               aria-hidden={!isMenuOpen}
-               className={`md:hidden pointer-events-auto mt-2 p-4 bg-white/95 backdrop-blur-2xl rounded-3xl border border-slate-200/90 shadow-2xl transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-top max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain space-y-4 ${
-                  isMenuOpen 
-                     ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto visible' 
-                     : 'opacity-0 scale-95 -translate-y-2 pointer-events-none invisible'
-               }`}
+            <Link
+               className="hidden items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:inline-flex"
+               href="/academics"
             >
-               <div>
-                  <div className="grid grid-cols-1 gap-1">
-                     {DO_SOMETHING_ITEMS.map((item) => {
-                        const IconComp = item.icon;
-                        return (
-                           <Link
-                              key={item.href}
-                              href={item.href}
-                              onClick={() => setIsMenuOpen(false)}
-                              className="flex items-start gap-3 p-2.5 rounded-2xl hover:bg-slate-50 transition-colors group"
-                           >
-                              <div className={`p-2 rounded-xl shrink-0 border ${item.color}`}>
-                                 <IconComp size={16} />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                 <span className="text-sm font-semibold text-slate-800 group-hover:text-emerald-700 transition-colors block truncate">
-                                    {item.title}
-                                 </span>
-                                 <p className="text-xs text-slate-500 line-clamp-1 mt-0.5 font-medium">
-                                    {item.desc}
-                                 </p>
-                              </div>
-                           </Link>
-                        );
-                     })}
-                  </div>
-               </div>
+               Open student hub
+               <ArrowUpRight aria-hidden="true" className="size-4" />
+            </Link>
 
-               {/* Mobile Bottom Actions: Join Community & GitHub */}
-               <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                  <button
-                     type="button"
-                     onClick={() => {
-                        setIsMenuOpen(false);
-                        setIsJoinModalOpen(true);
-                     }}
-                     className="flex-1 py-2.5 px-4 rounded-xl bg-primary hover:bg-primary-hover text-white font-bold text-sm text-center flex items-center justify-center gap-2 shadow-xs transition-colors"
+            <button
+               type="button"
+               className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-border bg-white text-foreground transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:hidden"
+               aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+               aria-expanded={mobileMenuOpen}
+               aria-controls={mobileMenuOpen ? 'mobile-navigation' : undefined}
+               onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
+            >
+               {mobileMenuOpen ? <X aria-hidden="true" className="size-5" /> : <Menu aria-hidden="true" className="size-5" />}
+            </button>
+         </div>
+
+         {mobileMenuOpen ? (
+            <div id="mobile-navigation" className="border-t border-border bg-background px-4 pb-5 pt-4 md:hidden">
+               <nav aria-label="Mobile navigation" className="mx-auto flex max-w-7xl flex-col gap-1">
+                  <Link
+                     className="rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
+                     href="/#programme"
+                     onClick={closeMobileMenu}
                   >
-                     <UserPlus size={16} />
-                     <span>Join Community</span>
-                  </button>
+                     Programme overview
+                  </Link>
+                  <Link
+                     className="rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
+                     href="/academics"
+                     onClick={closeMobileMenu}
+                  >
+                     All student levels
+                  </Link>
                   <a
-                     href={REPO_URL}
+                     className="flex items-center justify-between rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
+                     href={DEPARTMENT_PROFILE_URL}
                      target="_blank"
                      rel="noopener noreferrer"
-                     className="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 flex items-center justify-center transition-colors"
-                     aria-label="GitHub Repository"
+                     onClick={closeMobileMenu}
                   >
-                     <Github size={18} />
+                     FUOYE department profile
+                     <ArrowUpRight aria-hidden="true" className="size-4" />
                   </a>
-               </div>
-            </div>
-         </header>
+               </nav>
 
-         {/* "Join NACOSS Community" Modal Dialog */}
-         {isJoinModalOpen && (
-            <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
-               {/* Accessible Backdrop Layer */}
-               <button
-                  type="button"
-                  aria-label="Close modal overlay"
-                  onClick={() => setIsJoinModalOpen(false)}
-                  className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200 cursor-default border-0"
-               />
-
-               <div 
-                  role="dialog"
-                  aria-modal="true"
-                  aria-labelledby="join-modal-title"
-                  className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full border border-slate-200 shadow-2xl animate-in zoom-in-95 duration-200 relative overflow-hidden z-10"
-               >
-                  {/* Modal Header */}
-                  <div className="flex items-start justify-between mb-6">
-                     <div className="flex items-center gap-3">
-                        <div>
-                           <h2 id="join-modal-title" className="text-xl font-bold text-slate-900">
-                              Join NACOSS FUOYE
-                           </h2>
-                           <p className="text-xs sm:text-sm text-slate-500 font-medium">
-                              Connect with fellow student developers & tech innovators
-                           </p>
-                        </div>
-                     </div>
-                     <button
-                        type="button"
-                        onClick={() => setIsJoinModalOpen(false)}
-                        aria-label="Close Join Modal"
-                        className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors"
+               <div className="mx-auto mt-4 grid max-w-7xl grid-cols-3 gap-2 border-t border-border pt-4">
+                  {LEVELS.map((level) => (
+                     <Link
+                        key={level.code}
+                        className="rounded-xl border border-border bg-white px-3 py-3 text-center text-sm font-bold text-primary transition-colors hover:border-primary/40 hover:bg-secondary"
+                        href={level.href}
+                        onClick={closeMobileMenu}
                      >
-                        <X size={20} />
-                     </button>
-                  </div>
-
-                  {/* Channel Cards */}
-                  <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
-                     {COMMUNITY_CHANNELS.map((channel) => {
-                        const ChannelIcon = channel.icon;
-                        const isInternal = channel.url.startsWith('/');
-                        return (
-                           <div
-                              key={channel.name}
-                              className="p-4 rounded-2xl border border-slate-200/80 hover:border-emerald-300 hover:bg-emerald-50/20 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group relative"
-                           >
-                              <div className="flex items-start gap-3">
-                                 <div className={`p-2.5 rounded-xl ${channel.color} shrink-0 shadow-xs`}>
-                                    <ChannelIcon size={18} />
-                                 </div>
-                                 <div>
-                                    <div className="flex items-center gap-2">
-                                       <h3 className="text-sm font-bold text-slate-800">
-                                          {channel.name}
-                                       </h3>
-                                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 absolute right-2 top-2">
-                                          {channel.badge}
-                                       </span>
-                                    </div>
-                                    <p className="text-xs text-slate-500 mt-0.5 font-medium leading-relaxed">
-                                       {channel.desc}
-                                    </p>
-                                 </div>
-                              </div>
-                              <div className="w-full sm:w-auto shrink-0">
-                                 {isInternal ? (
-                                    <Link
-                                       href={channel.url}
-                                       onClick={() => setIsJoinModalOpen(false)}
-                                       className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors"
-                                    >
-                                       <span>{channel.linkText}</span>
-                                    </Link>
-                                 ) : (
-                                    <a
-                                       href={channel.url}
-                                       target="_blank"
-                                       rel="noopener noreferrer"
-                                       className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-emerald-600 hover:text-white transition-colors"
-                                    >
-                                       <span>{channel.linkText}</span>
-                                       <ExternalLink size={12} />
-                                    </a>
-                                 )}
-                              </div>
-                           </div>
-                        );
-                     })}
-                  </div>
-
-                  {/* Footer Notice */}
-                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-400">
-                     <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
-                     <span>Official Nigeria Association of Computer Science Students (FUOYE Chapter)</span>
-                  </div>
+                        {level.label}
+                     </Link>
+                  ))}
                </div>
             </div>
-         )}
-      </>
+         ) : null}
+      </header>
    );
 }
