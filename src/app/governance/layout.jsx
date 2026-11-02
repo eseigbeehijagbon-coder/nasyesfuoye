@@ -1,9 +1,9 @@
 import { buildPageMetadata } from '@/lib/site-config';
 
 export const metadata = buildPageMetadata({
-   title: 'Departmental Governance, Leadership & Voting',
+   title: 'Student Politics, Representation & Elections',
    description:
-      'Verified directory of executive officers, academic level advisers, SRC representatives, society constitution, and live ballot voting during election cycles.',
+      'Neutral guides to student representation, constructive campus priorities, and how to follow a fair departmental election process at FUOYE Systems Engineering.',
    pathname: '/governance',
 });
 

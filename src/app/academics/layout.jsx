@@ -1,9 +1,9 @@
 import { buildPageMetadata } from '@/lib/site-config';
 
 export const metadata = buildPageMetadata({
-   title: 'Academic Level Portals',
+   title: 'Academic Materials & Study Guides',
    description:
-      'Open the dedicated 100L, 200L, 300L, 400L, and 500L Systems Engineering student workspaces at FUOYE.',
+      'Browse curated study resources, practical learning prompts, and level guides for 100L through 500L at FUOYE Systems Engineering.',
    pathname: '/academics',
 });
 

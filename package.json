@@ -1,6 +1,6 @@
 {
    "name": "fuoye-systems-engineering-hub",
-   "description": "A mobile-first academic hub for FUOYE Systems Engineering students",
+   "description": "A student guide to study resources, events, and representation at FUOYE Systems Engineering",
    "private": true,
    "version": "0.0.0",
    "type": "module",

@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowDown, ArrowUpRight, ShieldCheck } from 'lucide-react';
-import { DEPARTMENT_PROFILE_URL } from '@/data/systems-engineering';
+import { ArrowDown, CalendarDays, ShieldCheck } from 'lucide-react';
 
 export default function HomeHero() {
    return (
@@ -17,29 +16,27 @@ export default function HomeHero() {
                   <span className="mt-1 block text-primary">Shape what comes next.</span>
                </h1>
                <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-                  A mobile-first academic hub for FUOYE Systems Engineering students. Find your level&apos;s workspace for course information, study resources, announcements, and schedules—with unpublished details clearly marked.
+                  Find academic materials by level, keep up with student events, and understand how representation works—all in one place.
                </p>
                <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                   <Link
                      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                     href="/academics"
+                     href="/academics#study-library"
                   >
-                     Choose your level
+                     Explore study materials
                      <ArrowDown aria-hidden="true" className="size-4" />
                   </Link>
-                  <a
+                  <Link
                      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-bold text-foreground transition-colors hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                     href={DEPARTMENT_PROFILE_URL}
-                     target="_blank"
-                     rel="noopener noreferrer"
+                     href="/events"
                   >
-                     Department profile
-                     <ArrowUpRight aria-hidden="true" className="size-4" />
-                  </a>
+                     See student events
+                     <CalendarDays aria-hidden="true" className="size-4" />
+                  </Link>
                </div>
                <p className="mt-5 inline-flex items-start gap-2 text-xs font-medium leading-5 text-muted-foreground">
                   <ShieldCheck aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
-                  Verified programme information only. Missing records are never filled with guesses.
+                  Sample listings are clearly marked; study links are supplementary and easy to check.
                </p>
             </div>
 

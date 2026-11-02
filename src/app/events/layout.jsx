@@ -1,9 +1,9 @@
 import { buildPageMetadata } from '@/lib/site-config';
 
 export const metadata = buildPageMetadata({
-   title: 'Departmental Events & Hackathons',
+   title: 'Student Events & Opportunities',
    description:
-      'Stay updated on Computer Science conferences, coding bootcamps, workshops, tech meetups, and national hackathons with live registration links.',
+      'Explore sample study circles, student forums, skills sessions, and ways to take part in campus life at FUOYE Systems Engineering.',
    pathname: '/events',
 });
 

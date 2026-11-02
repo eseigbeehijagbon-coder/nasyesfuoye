@@ -31,35 +31,32 @@ export default function Navbar() {
                </span>
             </Link>
 
-            <nav aria-label="Primary navigation" className="hidden items-center gap-7 md:flex">
+            <nav aria-label="Primary navigation" className="hidden items-center gap-5 xl:flex">
                <Link className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary" href="/#programme">
                   Programme
                </Link>
                <Link className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary" href="/academics">
-                  Student levels
+                  Academics
                </Link>
-               <a
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"
-                  href={DEPARTMENT_PROFILE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-               >
-                  Department profile
-                  <ArrowUpRight aria-hidden="true" className="size-4" />
-               </a>
+               <Link className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary" href="/events">
+                  Events
+               </Link>
+               <Link className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary" href="/governance">
+                  Student politics
+               </Link>
             </nav>
 
             <Link
-               className="hidden items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:inline-flex"
-               href="/academics"
+               className="hidden items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 xl:inline-flex"
+               href="/academics#study-library"
             >
-               Open student hub
+               Browse materials
                <ArrowUpRight aria-hidden="true" className="size-4" />
             </Link>
 
             <button
                type="button"
-               className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-border bg-white text-foreground transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:hidden"
+               className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-border bg-white text-foreground transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 xl:hidden"
                aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                aria-expanded={mobileMenuOpen}
                aria-controls={mobileMenuOpen ? 'mobile-navigation' : undefined}
@@ -70,7 +67,7 @@ export default function Navbar() {
          </div>
 
          {mobileMenuOpen ? (
-            <div id="mobile-navigation" className="border-t border-border bg-background px-4 pb-5 pt-4 md:hidden">
+            <div id="mobile-navigation" className="border-t border-border bg-background px-4 pb-5 pt-4 xl:hidden">
                <nav aria-label="Mobile navigation" className="mx-auto flex max-w-7xl flex-col gap-1">
                   <Link
                      className="rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
@@ -84,7 +81,21 @@ export default function Navbar() {
                      href="/academics"
                      onClick={closeMobileMenu}
                   >
-                     All student levels
+                     Academic materials
+                  </Link>
+                  <Link
+                     className="rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
+                     href="/events"
+                     onClick={closeMobileMenu}
+                  >
+                     Events &amp; opportunities
+                  </Link>
+                  <Link
+                     className="rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
+                     href="/governance"
+                     onClick={closeMobileMenu}
+                  >
+                     Student politics
                   </Link>
                   <a
                      className="flex items-center justify-between rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
