@@ -1,9 +1,9 @@
 import { buildPageMetadata } from '@/lib/site-config';
 
 export const metadata = buildPageMetadata({
-   title: 'Academic Resources & Software Repository',
+   title: 'Academic Level Portals',
    description:
-      'Access verified computer science course syllabi, past questions, registered semester units, and request or contribute departmental lab software and dev tools.',
+      'Open the dedicated 100L, 200L, 300L, 400L, and 500L Systems Engineering student workspaces at FUOYE.',
    pathname: '/academics',
 });
 

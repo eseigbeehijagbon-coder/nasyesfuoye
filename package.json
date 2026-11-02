@@ -1,6 +1,6 @@
 {
-   "name": "nacoss-portal",
-   "description": "An official portal for the Department of Computer Science",
+   "name": "fuoye-systems-engineering-hub",
+   "description": "A mobile-first academic hub for FUOYE Systems Engineering students",
    "private": true,
    "version": "0.0.0",
    "type": "module",
