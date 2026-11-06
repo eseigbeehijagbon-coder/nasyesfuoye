@@ -570,3 +570,60 @@ export const WEEKLY_STUDY_RHYTHM = [
       description: 'Practise from memory, check your weak spots, and verify dates and requirements from official notices.',
    },
 ];
+
+export const LEVEL_HUB_GUIDES = [
+   {
+      code: '100',
+      stage: 'Build your foundation',
+      summary: 'Get oriented, find a dependable study rhythm, and start building connections across the department.',
+      journey: [
+         { category: 'Student life', title: 'Find your people', description: 'Try a study circle or sample campus activity and connect with classmates you can learn with.', href: '/events', action: 'Explore student life' },
+         { category: 'Student voice', title: 'Know where to ask', description: 'Learn how student representation works and where to raise questions or share feedback.', href: '/governance', action: 'Explore representation' },
+         { category: 'Projects', title: 'Notice a system around you', description: 'Pick a small campus or community process and sketch one question you would like to explore.', href: '/buildlab', action: 'See student projects' },
+      ],
+   },
+   {
+      code: '200',
+      stage: 'Build confidence and connections',
+      summary: 'Strengthen your routines, try collaborative work, and begin collecting experiences that show what you can do.',
+      journey: [
+         { category: 'Student life', title: 'Join something that fits', description: 'Choose one learning or community activity that feels sustainable alongside your studies.', href: '/events', action: 'Explore student activities' },
+         { category: 'Peer support', title: 'Share what you have learned', description: 'Offer a practical tip to a newer student or start a small peer revision circle.', href: '/events', action: 'Find ways to get involved' },
+         { category: 'Projects', title: 'Keep a record of your work', description: 'Write down the problem, your contribution, and what you learned from a group or class project.', href: '/buildlab', action: 'Explore BuildLab' },
+      ],
+   },
+   {
+      code: '300',
+      stage: 'Apply ideas to real problems',
+      summary: 'Connect your learning to practical questions, collaborate on visible work, and start exploring career directions.',
+      journey: [
+         { category: 'Projects', title: 'Turn a problem into a project', description: 'Choose a useful question, describe your approach, and share progress with classmates.', href: '/buildlab', action: 'Explore student projects' },
+         { category: 'Career growth', title: 'Start a career conversation', description: 'Ask about skills, project examples, and possible routes into work or further study.', href: '/events', action: 'Explore career ideas' },
+         { category: 'Student voice', title: 'Help shape student life', description: 'Learn how representation works and consider where your experience could help others.', href: '/governance', action: 'Learn about representation' },
+      ],
+   },
+   {
+      code: '400',
+      stage: 'Turn experience into direction',
+      summary: 'Use project work to demonstrate your thinking, investigate next-step opportunities, and prepare for professional conversations.',
+      journey: [
+         { category: 'Projects', title: 'Make your work easy to show', description: 'Keep a clear record of the question, your role, decisions, and evidence of progress.', href: '/buildlab', action: 'Explore BuildLab' },
+         { category: 'Opportunities', title: 'Check requirements before applying', description: 'Look for published opportunities and confirm any placement or application rules through official notices.', href: '/memos', action: 'Check published notices' },
+         { category: 'Career growth', title: 'Practise telling your story', description: 'Use a project example to explain your strengths, teamwork, and how you approach a challenge.', href: '/events', action: 'Explore career development' },
+      ],
+   },
+   {
+      code: '500',
+      stage: 'Finish with a strong next step',
+      summary: 'Bring your major work to a clear finish, communicate what you have learned, and plan a thoughtful transition beyond university.',
+      journey: [
+         { category: 'Projects', title: 'Make progress visible', description: 'Break major work into manageable milestones and keep a record of decisions, feedback, and results.', href: '/buildlab', action: 'Explore student projects' },
+         { category: 'Career growth', title: 'Prepare examples of your work', description: 'Choose projects that show how you solve problems, work with others, and communicate decisions.', href: '/events', action: 'Explore career ideas' },
+         { category: 'Community', title: 'Pass useful knowledge forward', description: 'Share a resource, mentor a peer, or help make student information easier to find.', href: '/governance', action: 'Explore student representation' },
+      ],
+   },
+];
+
+export function getLevelHubGuide(code) {
+   return LEVEL_HUB_GUIDES.find((guide) => guide.code === code) ?? LEVEL_HUB_GUIDES[0];
+}

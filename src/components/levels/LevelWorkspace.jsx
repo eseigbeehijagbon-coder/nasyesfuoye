@@ -6,14 +6,15 @@ import {
    BookOpen,
    CalendarDays,
    ShieldCheck,
-   Vote,
 } from 'lucide-react';
 import AcademicLibrary from '@/components/AcademicLibrary';
+import LevelExperience from '@/components/levels/LevelExperience';
 import { DEPARTMENT_PROFILE_URL, LEVELS, PROGRAMME_AREAS, getLevelByCode } from '@/data/systems-engineering';
-import { WEEKLY_STUDY_RHYTHM } from '@/data/student-hub-content';
+import { getLevelHubGuide, WEEKLY_STUDY_RHYTHM } from '@/data/student-hub-content';
 
 export default function LevelWorkspace({ levelCode }) {
    const level = getLevelByCode(levelCode);
+   const guide = getLevelHubGuide(level.code);
    const currentIndex = LEVELS.findIndex((item) => item.code === level.code);
    const previousLevel = LEVELS[currentIndex - 1];
    const nextLevel = LEVELS[currentIndex + 1];
@@ -25,7 +26,7 @@ export default function LevelWorkspace({ levelCode }) {
                <nav aria-label="Breadcrumb" className="mb-7 flex items-center gap-2 text-xs font-semibold text-muted-foreground">
                   <Link className="transition-colors hover:text-primary" href="/">Home</Link>
                   <span aria-hidden="true">/</span>
-                  <Link className="transition-colors hover:text-primary" href="/academics">Academic materials</Link>
+                  <Link className="transition-colors hover:text-primary" href="/#study-levels">Student hubs</Link>
                   <span aria-hidden="true">/</span>
                   <span aria-current="page" className="text-primary">{level.label}</span>
                </nav>
@@ -34,22 +35,22 @@ export default function LevelWorkspace({ levelCode }) {
                   <div className="max-w-3xl">
                      <p className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-primary">
                         <span className="size-2 rounded-full bg-accent" aria-hidden="true" />
-                        Your {level.label} study guide
+                        Your {level.label} student hub
                      </p>
                      <h1 className="mt-5 font-display text-4xl font-bold leading-[1.06] tracking-[-0.045em] text-foreground sm:text-5xl lg:text-6xl">
-                        Make this your strongest <span className="text-primary">{level.name}</span> year.
+                        Everything for your <span className="text-primary">{level.name}</span> year.
                      </h1>
                      <p className="mt-5 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
-                        Find curated references, practical study prompts, and a simple rhythm for keeping your learning on track.
+                        {guide.summary} Explore the academic, community, project, and career links selected for {level.label}.
                      </p>
                      <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                         <a href="#level-study-library" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
                            <BookOpen aria-hidden="true" className="size-4" />
                            Browse {level.label} resources
                         </a>
-                        <Link href="/events" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-bold text-foreground transition-colors hover:border-primary/35 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                        <Link href="#level-life" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-bold text-foreground transition-colors hover:border-primary/35 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
                            <CalendarDays aria-hidden="true" className="size-4" />
-                           See student events
+                           Explore student life
                         </Link>
                      </div>
                   </div>
@@ -58,11 +59,11 @@ export default function LevelWorkspace({ levelCode }) {
                      <div className="flex size-11 items-center justify-center rounded-2xl bg-[#edf2e9] text-primary">
                         <ShieldCheck aria-hidden="true" className="size-5" />
                      </div>
-                     <h2 className="mt-5 font-display text-lg font-bold text-foreground">A helpful starting point</h2>
+                     <h2 className="mt-5 font-display text-lg font-bold text-foreground">Your year at a glance</h2>
                      <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
-                        <li className="flex gap-2"><span className="font-bold text-primary">01</span><span>Curated, free learning resources for {level.label}.</span></li>
-                        <li className="flex gap-2"><span className="font-bold text-primary">02</span><span>Practice ideas you can use alone or with classmates.</span></li>
-                        <li className="flex gap-2"><span className="font-bold text-primary">03</span><span>Official course requirements remain linked to department sources.</span></li>
+                        <li className="flex gap-2"><span className="font-bold text-primary">01</span><span>Academic resources and study routines for {level.label}.</span></li>
+                        <li className="flex gap-2"><span className="font-bold text-primary">02</span><span>{guide.journey[0].title} and year-specific student-life guidance.</span></li>
+                        <li className="flex gap-2"><span className="font-bold text-primary">03</span><span>Projects, opportunities, published updates, and student services.</span></li>
                      </ul>
                   </aside>
                </div>
@@ -76,6 +77,8 @@ export default function LevelWorkspace({ levelCode }) {
             title={`Study resources for ${level.label}.`}
             description="These free external links are supplementary study aids, not official course outlines or lecture notes. Use your approved course materials for registration and assessment requirements."
          />
+
+         <LevelExperience level={level} guide={guide} />
 
          <section aria-labelledby="study-rhythm-title" className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
             <div className="mx-auto max-w-7xl">
@@ -120,31 +123,6 @@ export default function LevelWorkspace({ levelCode }) {
                      <li key={area} className="rounded-full border border-border bg-background px-4 py-2.5 text-sm font-semibold text-secondary-foreground">{area}</li>
                   ))}
                </ul>
-            </div>
-         </section>
-
-         <section aria-label="More student support" className="px-4 py-10 sm:px-6 lg:px-8">
-            <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-2">
-               <Link href="/events" className="group flex items-center justify-between gap-4 rounded-3xl border border-border bg-white p-5 transition-colors hover:border-primary/30 sm:p-6">
-                  <span className="flex items-start gap-3">
-                     <CalendarDays aria-hidden="true" className="mt-1 size-5 shrink-0 text-primary" />
-                     <span>
-                        <span className="block font-display text-lg font-bold text-foreground">Find a study group or event</span>
-                        <span className="mt-1 block text-sm leading-6 text-muted-foreground">See sample activities and ways to learn with other students.</span>
-                     </span>
-                  </span>
-                  <ArrowRight aria-hidden="true" className="size-5 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
-               </Link>
-               <Link href="/governance" className="group flex items-center justify-between gap-4 rounded-3xl border border-border bg-white p-5 transition-colors hover:border-primary/30 sm:p-6">
-                  <span className="flex items-start gap-3">
-                     <Vote aria-hidden="true" className="mt-1 size-5 shrink-0 text-primary" />
-                     <span>
-                        <span className="block font-display text-lg font-bold text-foreground">Understand student representation</span>
-                        <span className="mt-1 block text-sm leading-6 text-muted-foreground">Learn who represents students and how to raise a concern.</span>
-                     </span>
-                  </span>
-                  <ArrowRight aria-hidden="true" className="size-5 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
-               </Link>
             </div>
          </section>
 

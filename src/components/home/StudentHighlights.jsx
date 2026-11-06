@@ -1,41 +1,73 @@
 import Link from 'next/link';
-import { ArrowUpRight, BookOpen, CalendarDays, Vote } from 'lucide-react';
+import { ArrowUpRight, BookOpen, BriefcaseBusiness, CalendarDays, FileText, Rocket, Vote } from 'lucide-react';
+import { SHOWCASE_PROJECTS } from '@/data/portal-updates';
 import {
    ACADEMIC_RESOURCES,
    REPRESENTATIVE_ROLES,
    STUDENT_EVENTS,
+   STUDENT_OPPORTUNITIES,
 } from '@/data/student-hub-content';
 
 const HIGHLIGHTS = [
    {
+      href: '/academics#study-library',
+      eyebrow: 'Academics',
+      title: 'Make your next study session count.',
+      description: 'Find supplementary learning links and practical study prompts for all five levels.',
+      detail: `${ACADEMIC_RESOURCES.length} learning resources`,
+      preview: 'Open textbooks, guided courses, references, and practice ideas',
+      icon: BookOpen,
+      iconClass: 'bg-[#e1eee8] text-[#245644]',
+   },
+   {
       href: '/events',
-      eyebrow: 'Events & opportunities',
-      title: 'Find something worth showing up for.',
-      description: 'Browse study circles, student forums, skills sessions, and ways to get involved.',
-      detail: `${STUDENT_EVENTS.length} sample calendar listings`,
-      preview: `Next up: ${STUDENT_EVENTS[0].title} · ${STUDENT_EVENTS[0].dateLabel}`,
+      eyebrow: 'Student life',
+      title: 'Find your people and your place.',
+      description: 'Explore sample study circles, forums, skills sessions, and ways to get involved.',
+      detail: `${STUDENT_EVENTS.length} sample activities`,
+      preview: 'Meet classmates, learn together, and discover ways to participate',
       icon: CalendarDays,
       iconClass: 'bg-[#e5efdc] text-primary',
    },
    {
+      href: '/memos',
+      eyebrow: 'Department news',
+      title: 'Stay close to published updates.',
+      description: 'Go to the live memo board for current announcements and student notices.',
+      detail: 'Live memo board',
+      preview: 'Search published updates by category',
+      icon: FileText,
+      iconClass: 'bg-[#e1eee8] text-[#245644]',
+   },
+   {
       href: '/governance',
-      eyebrow: 'Student politics',
-      title: 'Know who represents you.',
-      description: 'Understand student roles, explore shared priorities, and follow a fair election process.',
-      detail: `${REPRESENTATIVE_ROLES.length} representation roles explained`,
+      eyebrow: 'Student representation',
+      title: 'Know how student voice works.',
+      description: 'Understand representation roles, shared priorities, and fair election processes.',
+      detail: `${REPRESENTATIVE_ROLES.length} roles explained`,
       preview: 'Neutral guides, sample discussion topics, and voting basics',
       icon: Vote,
       iconClass: 'bg-[#f1efd9] text-[#675d1d]',
    },
    {
-      href: '/academics#study-library',
-      eyebrow: 'Academic materials',
-      title: 'Make your next study session count.',
-      description: 'Find curated learning links and practice ideas organized for all five student levels.',
-      detail: `${ACADEMIC_RESOURCES.length} learning resources across 5 levels`,
-      preview: 'Open textbooks, guided courses, practical references, and prompts',
-      icon: BookOpen,
+      href: '/buildlab',
+      eyebrow: 'Projects',
+      title: 'See what students are building.',
+      description: 'Explore existing project showcases and find a route to share your own idea.',
+      detail: `${SHOWCASE_PROJECTS.length} showcase projects`,
+      preview: 'Student-built tools, experiments, and project stories',
+      icon: Rocket,
       iconClass: 'bg-[#e1eee8] text-[#245644]',
+   },
+   {
+      href: '/events',
+      eyebrow: 'Opportunities & careers',
+      title: 'Build experience one step at a time.',
+      description: 'Explore mentoring, project, and career-development ideas—not live job listings.',
+      detail: `${STUDENT_OPPORTUNITIES.length} starter ideas`,
+      preview: 'Practise skills, connect with peers, and plan what comes next',
+      icon: BriefcaseBusiness,
+      iconClass: 'bg-[#f1efd9] text-[#675d1d]',
    },
 ];
 
@@ -47,23 +79,23 @@ export default function StudentHighlights() {
                <div className="max-w-2xl">
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Your student hub</p>
                   <h2 id="student-highlights-title" className="mt-3 font-display text-3xl font-bold tracking-[-0.035em] text-foreground sm:text-4xl">
-                     What you need, right when you need it.
+                     Every part of student life, easier to find.
                   </h2>
                </div>
                <p className="max-w-xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
-                  From study support to student life, start with the information that helps you take your next step.
+                  Start with the area that matters today, then explore the full set of student support and services.
                </p>
             </div>
 
-            <div className="mt-8 grid gap-4 lg:mt-10 lg:grid-cols-3">
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10 xl:grid-cols-3">
                {HIGHLIGHTS.map((highlight) => {
                   const Icon = highlight.icon;
 
                   return (
                      <Link
-                        key={highlight.href}
+                        key={highlight.eyebrow}
                         href={highlight.href}
-                        className="group flex min-h-72 flex-col rounded-3xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_18px_42px_-30px_rgba(17,35,27,0.42)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:p-6"
+                        className="group flex min-h-64 flex-col rounded-3xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_18px_42px_-30px_rgba(17,35,27,0.42)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:p-6"
                      >
                         <div className="flex items-start justify-between gap-4">
                            <span className={`flex size-12 items-center justify-center rounded-2xl ${highlight.iconClass}`}>
@@ -90,7 +122,7 @@ export default function StudentHighlights() {
             </div>
 
             <p className="mt-5 text-xs leading-5 text-muted-foreground">
-               Event dates and discussion examples are samples. Study links are supplementary; check official notices for confirmed requirements.
+               Event formats and opportunity ideas are samples, not confirmed listings. Study links are supplementary; check official notices for requirements.
             </p>
          </div>
       </section>
