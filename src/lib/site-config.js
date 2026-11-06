@@ -6,14 +6,16 @@ export const SITE_NAME = 'FUOYE Systems Engineering';
 export const SITE_TITLE_DEFAULT = 'FUOYE Systems Engineering | Student Hub';
 export const SITE_TITLE_TEMPLATE = '%s | FUOYE Systems Engineering';
 export const SITE_DESCRIPTION =
-   'Find curated study materials by level, preview student events, and learn how representation works at FUOYE Systems Engineering.';
+   'The all-round FUOYE Systems Engineering student platform for academics, student life, departmental updates, events, representation, projects, opportunities, and career development.';
 
 export const SITE_KEYWORDS = [
    'FUOYE Systems Engineering',
    'Systems Engineering FUOYE',
    'Federal University Oye-Ekiti Systems Engineering',
    'FUOYE academic resources',
-   'FUOYE course information',
+   'FUOYE student projects',
+   'FUOYE student opportunities',
+   'FUOYE career development',
    'Systems Engineering student portal',
    '100L Systems Engineering',
    '200L Systems Engineering',

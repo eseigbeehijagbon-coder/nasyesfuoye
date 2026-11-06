@@ -16,21 +16,21 @@ export default function HomeHero() {
                   <span className="mt-1 block text-primary">Shape what comes next.</span>
                </h1>
                <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-                  Find academic materials by level, keep up with student events, and understand how representation works—all in one place.
+                  Your student platform for academics, campus life, departmental updates, representation, projects, opportunities, and career development.
                </p>
                <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                   <Link
                      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                     href="/academics#study-library"
+                     href="#study-levels"
                   >
-                     Explore study materials
+                     Explore your year hub
                      <ArrowDown aria-hidden="true" className="size-4" />
                   </Link>
                   <Link
                      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-bold text-foreground transition-colors hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                      href="/events"
                   >
-                     See student events
+                     Explore student life
                      <CalendarDays aria-hidden="true" className="size-4" />
                   </Link>
                </div>

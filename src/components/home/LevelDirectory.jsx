@@ -4,15 +4,15 @@ import { LEVELS } from '@/data/systems-engineering';
 
 export default function LevelDirectory({
    id = 'study-levels',
-   title = 'Find your level. Pick your next step.',
-   description = 'Choose your current year to find study resources, practical guides, and helpful ways to plan what to learn next.',
+   title = 'Every year has a hub. Start with yours.',
+   description = 'Each level hub brings together study resources, student life, representation, projects, opportunities, and practical next steps for that stage of your journey.',
 }) {
    return (
       <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-20 bg-background px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20">
          <div className="mx-auto max-w-7xl">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                <div className="max-w-2xl">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Your academic space</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Your year-by-year student hubs</p>
                   <h2 id={`${id}-title`} className="mt-3 font-display text-3xl font-bold tracking-[-0.035em] text-foreground sm:text-4xl">
                      {title}
                   </h2>
@@ -37,7 +37,7 @@ export default function LevelDirectory({
                      <div className="mt-6">
                         <p className="text-xs font-medium text-muted-foreground">{level.name}</p>
                         <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-foreground transition-colors group-hover:text-primary">
-                           View level resources
+                           Explore your hub
                            <ArrowUpRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </span>
                      </div>
